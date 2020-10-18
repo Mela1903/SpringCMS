@@ -3,6 +3,8 @@ package pl.coderslab.SpringCMS.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.SpringCMS.converter.AuthorConverter;
+import pl.coderslab.SpringCMS.converter.CategoryConverter;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -33,6 +37,13 @@ public class AppConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(authorConverter());
+        registry.addConverter(categoryConverter());
+    }
+
+
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean entityManagerFactoryBean
@@ -46,5 +57,13 @@ public class AppConfig implements WebMvcConfigurer {
                 new JpaTransactionManager(entityManagerFactory);
         return jpaTransactionManager;
     }
+    @Bean
+    public Converter authorConverter(){
+        return new AuthorConverter();
+    }
 
+    @Bean
+    public Converter categoryConverter(){
+        return new CategoryConverter();
+    }
 }

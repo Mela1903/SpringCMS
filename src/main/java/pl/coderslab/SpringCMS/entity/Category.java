@@ -50,4 +50,14 @@ public class Category {
         this.article = article;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", article=" + article +
+                '}';
+    }
 }
