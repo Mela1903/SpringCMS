@@ -2,7 +2,6 @@ package pl.coderslab.SpringCMS.dao;
 
 import org.springframework.stereotype.Repository;
 import pl.coderslab.SpringCMS.entity.Article;
-import pl.coderslab.SpringCMS.entity.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,7 +9,6 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.awt.print.Book;
 import java.util.List;
-
 
 @Repository
 @Transactional

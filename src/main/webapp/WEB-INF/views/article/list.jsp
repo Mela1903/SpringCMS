@@ -13,7 +13,7 @@
     <title>List articles</title>
 </head>
 <body>
-Categories:
+Articles:
 <table border="1" style="column-rule-width: 40px">
     <tr>
         <th>Lp.</th>
@@ -41,14 +41,14 @@ Categories:
 
             <td>${art.content}</td>
             <td>${art.created.format(formatter)}</td>
-            <td>${art.updated}</td>
+            <td>${art.updated.format(formatter)}</td>
             <td>
-                <a href="">
+                <a href="/art/edit/${art.id}">
                     <button style="size: 15px">Edit</button>
                 </a>
             </td>
             <td>
-                <a href=""/>
+                <a href="/art/delete/${art.id}"/>
                 <button style="size: 15px">Delete</button>
                 </a>
             </td>

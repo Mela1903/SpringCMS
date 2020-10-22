@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -15,24 +16,26 @@
 <body>
 <form:form method="post" modelAttribute="article">
     <div>
-        <label for="name">Article Title</label>
-        <form:input path="name"/>
+        <label for="title">Article Title</label>
+        <form:input path="title"/>
     </div>
 
     <div>
         <label for="author">Author - choose from drop-down list</label>
-        <form:select path="author.id" items="${authors}" id="author" itemLabel="firstName" itemValue="id"/>
+        <form:select path="author" items="${authors}" id="author" itemValue="id"/>
     </div>
 
     <div>
-        <label for="categories">Categories</label>
-        <form:select multiple="true" path="categories.name">
-        <form:options items="${categories}" id="categories" itemLabel="name" itemValue="id"/>
-        </form:select>
+        <label>Category</label>
+        <c:forEach items="${categories}" var="categoryItem">
+            <form:checkbox path="category" label="${categoryItem.name}" value="${categoryItem.id}" multiple="true"/>
+        </c:forEach>
     </div>
 
-
-
+    <div>
+        <label for="content">Content</label>
+        <form:input path="content"/>
+    </div>
 
 
     <input type="submit" value="Submit">

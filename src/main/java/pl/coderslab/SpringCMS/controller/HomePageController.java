@@ -1,10 +1,13 @@
 package pl.coderslab.SpringCMS.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringCMS.dao.ArticleDao;
 import pl.coderslab.SpringCMS.entity.Article;
+import pl.coderslab.SpringCMS.entity.Category;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class HomePageController {
         this.articleDao = articleDao;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     @ResponseBody
     public String findLast5Articles() {
         StringBuilder infos = new StringBuilder();
@@ -33,5 +36,11 @@ public class HomePageController {
         return infos.toString();
 
     }
+
+    @GetMapping("/")
+    public String showOption() {
+        return "home/home";
+    }
+
 
 }

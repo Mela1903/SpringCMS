@@ -1,6 +1,8 @@
 package pl.coderslab.SpringCMS.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -11,9 +13,9 @@ public class Category {
     @Column(length = 100)
     private String name;
     private String description;
+    @ManyToMany(mappedBy = "category")
 
-    @ManyToOne
-    private Article article;
+    private List<Article> articles = new ArrayList<>();
 
     public Category() {
     }
@@ -42,12 +44,12 @@ public class Category {
         this.description = description;
     }
 
-    public Article getArticle() {
-        return article;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public Category setArticle(Article article) {
-        this.article = article;
+    public Category setArticles(List<Article> articles) {
+        this.articles = articles;
         return this;
     }
 
@@ -56,8 +58,6 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", article=" + article +
                 '}';
     }
 }

@@ -1,21 +1,21 @@
 package pl.coderslab.SpringCMS.controller;
 
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import pl.coderslab.SpringCMS.dao.ArticleDao;
 import pl.coderslab.SpringCMS.dao.AuthorDao;
 import pl.coderslab.SpringCMS.dao.CategoryDao;
 import pl.coderslab.SpringCMS.entity.Article;
 import pl.coderslab.SpringCMS.entity.Author;
 import pl.coderslab.SpringCMS.entity.Category;
-
 import javax.transaction.Transactional;
-import java.awt.print.Book;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,13 +26,12 @@ public class ArticleController {
     private final AuthorDao authorDao;
     private final CategoryDao categoryDao;
 
-
+    @Autowired
     public ArticleController(ArticleDao articleDao, AuthorDao authorDao, CategoryDao categoryDao) {
         this.articleDao = articleDao;
         this.authorDao = authorDao;
         this.categoryDao = categoryDao;
     }
-
 
     @GetMapping("/list")
     @Transactional
@@ -69,9 +68,10 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public String addArticlePost(@ModelAttribute Article article){
-        this.articleDao.save(article);
-        return "redirect: list";
+    public String addArticlePost(@Validated Article article, BindingResult result, Model m){
+        articleDao.save(article);
+        m.addAttribute("article", article);
+        return "redirect:list";
     }
 
     @RequestMapping("/delete/{id}")
@@ -86,7 +86,7 @@ public class ArticleController {
     public String editArticleForm(@PathVariable long id, Model m) {
         Article articleEdited = articleDao.findById(id);
         m.addAttribute("articleEdited", articleEdited);
-        m.addAttribute("article", new Category());
+        m.addAttribute("article", new Article());
         return "article/update-form";
     }
 

@@ -3,7 +3,6 @@ package pl.coderslab.SpringCMS.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -16,7 +15,7 @@ public class Article {
     private String title;
     @OneToOne
     private Author author;
-    @OneToMany(mappedBy = "article")
+    @ManyToMany
     private List<Category> category = new ArrayList<>();
     private String content;
     private LocalDateTime created;
@@ -64,7 +63,7 @@ public class Article {
         return category;
     }
 
-    public Article setCategories(List<Category> categories) {
+    public Article setCategory(List<Category> category) {
         this.category = category;
         return this;
     }
@@ -82,8 +81,8 @@ public class Article {
         return "Article{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-//                ", author=" + author +
-//                ", category=" + category +
+                ", author=" + author +
+                ", category=" + category +
                 ", content='" + content + '\'' +
                 ", created=" + created +
                 ", updated=" + updated +

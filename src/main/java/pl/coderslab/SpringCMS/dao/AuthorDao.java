@@ -1,9 +1,7 @@
 package pl.coderslab.SpringCMS.dao;
 
 import org.springframework.stereotype.Repository;
-import pl.coderslab.SpringCMS.entity.Article;
 import pl.coderslab.SpringCMS.entity.Author;
-import pl.coderslab.SpringCMS.entity.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

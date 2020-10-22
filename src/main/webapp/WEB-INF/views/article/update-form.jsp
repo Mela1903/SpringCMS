@@ -7,26 +7,40 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<form:form method="post" action="/art/update"  modelAttribute="article">
+<form:form method="post" action="/art/update" modelAttribute="article">
 
-        <form:input type="hidden" path="id" value="${articleEdited.id}"/>
-        <div>
-            <label for="name">Category Name</label>
-            <form:input path="name" value="${articleEdited.name}"/>
-        </div>
+    <form:input type="hidden" path="id" value="${articleEdited.id}"/>
+    <div>
+        <label for="title">Category Name</label>
+        <form:input path="title" value="${articleEdited.title}"/>
+    </div>
 
-        <div>
-            <label for="description">Description</label>
-            <form:input path="description" value="${articleEdited.description}"/>
-        </div>
+    <div>
+        <label for="author">Author - update</label>
+        <form:select path="author" items="${authors}" id="author" itemValue="id" value="${articleEdited.author}"/>
+    </div>
 
-        <input type="submit" value="Submit">
+    <div>
+        <label>Category</label>
+        <c:forEach items="${categories}" var="categoryItem">
+            <form:checkbox path="category" label="${categoryItem.name}" value="${categoryItem.id}" multiple="true"/>
+        </c:forEach>
+    </div>
+
+    <div>
+        <label for="content">Content</label>
+        <form:input path="content" value="${articleEdited.content}"/>
+    </div>
+
+    <input type="submit" value="Submit">
 
 </form:form>
 

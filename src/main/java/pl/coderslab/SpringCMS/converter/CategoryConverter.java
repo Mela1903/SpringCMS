@@ -12,7 +12,7 @@ public class CategoryConverter implements Converter<String, Category> {
     private CategoryDao categoryDao;
 
     @Override
-    public Category convert(String categoriesId) {
-        return categoryDao.findById(Long.parseLong(categoriesId));
+    public Category convert(String categoryId) {
+        return categoryDao.findById(Integer.parseInt(categoryId));
     }
 }
