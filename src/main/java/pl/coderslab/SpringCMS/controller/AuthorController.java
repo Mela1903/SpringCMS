@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringCMS.dao.ArticleDao;
 import pl.coderslab.SpringCMS.dao.AuthorDao;
@@ -13,22 +12,22 @@ import pl.coderslab.SpringCMS.dao.CategoryDao;
 import pl.coderslab.SpringCMS.entity.Article;
 import pl.coderslab.SpringCMS.entity.Author;
 import pl.coderslab.SpringCMS.entity.Category;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/art", produces = "text/html; charset=UTF-8")
-public class ArticleController {
+@RequestMapping(value = "/aut", produces = "text/html; charset=UTF-8")
+public class AuthorController {
 
     private final ArticleDao articleDao;
     private final AuthorDao authorDao;
     private final CategoryDao categoryDao;
 
     @Autowired
-    public ArticleController(ArticleDao articleDao, AuthorDao authorDao, CategoryDao categoryDao) {
+    public AuthorController(ArticleDao articleDao, AuthorDao authorDao, CategoryDao categoryDao) {
         this.articleDao = articleDao;
         this.authorDao = authorDao;
         this.categoryDao = categoryDao;
@@ -37,14 +36,9 @@ public class ArticleController {
     @GetMapping("/list")
     @Transactional
     public String findAll(Model m) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        List<Article> articles = articleDao.findAll();
-        for(Article a : articles){
-        Hibernate.initialize(a.getCategory());
-        }
-        m.addAttribute("articles", articles);
-        m.addAttribute("formatter", formatter);
-        return "article/list";
+        List<Author> authors = authorDao.findAll();
+        m.addAttribute("authors", authors);
+        return "author/list";
     }
 
     @ModelAttribute("articles")
@@ -63,40 +57,40 @@ public class ArticleController {
     }
 
     @GetMapping("/add")
-    public String addArticle(Model m) {
-        m.addAttribute("article", new Article());
-        return "article/add-form";
+    public String addAuthor(Model m) {
+        m.addAttribute("author", new Author());
+        return "author/add-form";
     }
 
     @PostMapping("/add")
-    public String addArticlePost(@ModelAttribute("article") @Valid Article article, BindingResult result, Model m){
+    public String addAuthorPost(@ModelAttribute("author") @Valid Author author, BindingResult result, Model m){
         if (result.hasErrors()){
-            return "article/add-form";
+            return "author/add-form";
         }
-        articleDao.save(article);
-        m.addAttribute("article", article);
+        authorDao.save(author);
+        m.addAttribute("author", author);
         return "redirect:list";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteArticle(@PathVariable long id) {
-        Article article = articleDao.findById(id);
-        articleDao.delete(article);
+        Author author = authorDao.findById(id);
+        authorDao.delete(author);
         return "redirect: ../list";
     }
 
 
     @GetMapping("/edit/{id}")
     public String editArticleForm(@PathVariable long id, Model m) {
-        Article articleEdited = articleDao.findById(id);
-        m.addAttribute("articleEdited", articleEdited);
-        m.addAttribute("article", new Article());
-        return "article/update-form";
+        Author authorEdited = authorDao.findById(id);
+        m.addAttribute("authorEdited", authorEdited);
+        m.addAttribute("author", new Author());
+        return "author/update-form";
     }
 
     @PostMapping("/update")
-    public String updateAndSave(@ModelAttribute Article article) {
-        articleDao.update(article);
+    public String updateAndSave(@ModelAttribute Author author) {
+        authorDao.update(author);
         return "redirect: list";
     }
 

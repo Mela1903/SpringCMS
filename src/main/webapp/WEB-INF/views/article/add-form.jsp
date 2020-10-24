@@ -18,23 +18,32 @@
     <div>
         <label for="title">Article Title</label>
         <form:input path="title"/>
+        <form:errors path="title" cssStyle="color: coral"/>
     </div>
 
     <div>
         <label for="author">Author - choose from drop-down list</label>
         <form:select path="author" items="${authors}" id="author" itemValue="id"/>
+        <form:errors path="author" cssStyle="color: coral"/>
+
     </div>
 
     <div>
         <label>Category</label>
         <c:forEach items="${categories}" var="categoryItem">
             <form:checkbox path="category" label="${categoryItem.name}" value="${categoryItem.id}" multiple="true"/>
+
         </c:forEach>
+        <div>
+            <form:errors path="category" cssStyle="color: coral"/>
+        </div>
     </div>
 
     <div>
         <label for="content">Content</label>
-        <form:input path="content"/>
+        <form:textarea path="content"/>
+        <form:errors path="content" cssStyle="color: coral"/>
+
     </div>
 
 

@@ -1,6 +1,8 @@
 package pl.coderslab.SpringCMS.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(length = 100)
+    @NotNull
+    @Size(min = 5)
     private String name;
     private String description;
     @ManyToMany(mappedBy = "category")

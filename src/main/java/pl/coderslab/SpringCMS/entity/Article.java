@@ -1,6 +1,7 @@
 package pl.coderslab.SpringCMS.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,16 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(length = 200)
+    @NotBlank
+    @Size(max = 200)
     private String title;
     @OneToOne
     private Author author;
     @ManyToMany
+    @NotEmpty
     private List<Category> category = new ArrayList<>();
+    @NotBlank
+    @Size(min = 500)
     private String content;
     private LocalDateTime created;
     private LocalDateTime updated;

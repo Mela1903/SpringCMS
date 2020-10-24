@@ -37,7 +37,7 @@
 
     <div>
         <label for="content">Content</label>
-        <form:input path="content" value="${articleEdited.content}"/>
+        <form:textarea path="content" value="${articleEdited.content}"/>
     </div>
 
     <input type="submit" value="Submit">

@@ -7,25 +7,24 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<form:form method="post" modelAttribute="category">
+<form:form method="post" modelAttribute="author">
     <div>
-        <label for="name">Category Name</label>
-        <form:input path="name"/>
-        <form:errors path="name"/>
-
+        <label for="firstName">First Name</label>
+        <form:input path="firstName"/>
+        <form:errors path="firstName" cssStyle="color: coral"/>
     </div>
 
     <div>
-        <label for="description">Description</label>
-        <form:input path="description"/>
-        <form:errors path="description"/>
-
+        <label for="lastName">Last Name</label>
+        <form:input path="lastName"/>
+        <form:errors path="lastName" cssStyle="color: coral"/>
     </div>
 
     <input type="submit" value="Submit">

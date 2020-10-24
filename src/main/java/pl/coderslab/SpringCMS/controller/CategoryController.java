@@ -2,9 +2,12 @@ package pl.coderslab.SpringCMS.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringCMS.dao.CategoryDao;
 import pl.coderslab.SpringCMS.entity.Category;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,8 +39,12 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String addCategoryPost(@ModelAttribute Category category){
+    public String addCategoryPost(@ModelAttribute("category") @Valid Category category, BindingResult result, Model m){
+        if (result.hasErrors()){
+            return "category/add-form";
+        }
         this.categoryDao.save(category);
+        m.addAttribute("category", category);
         return "redirect: list";
     }
 
